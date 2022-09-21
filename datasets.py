@@ -54,6 +54,10 @@ transform_val = T.Compose([
     T.ToTensor(),
 ])
 
+transform_test = T.Compose([
+    T.Resize((c.cropsize_val,c.cropsize_val)),
+    T.ToTensor(),
+])
 
 # Training data loader
 trainloader = DataLoader(

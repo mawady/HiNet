@@ -14,20 +14,21 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 def load(name):
-    state_dicts = torch.load(name)
+    # state_dicts = torch.load(name)
+    state_dicts = torch.load(name, map_location=device)
     network_state_dict = {k:v for k,v in state_dicts['net'].items() if 'tmp_var' not in k}
     net.load_state_dict(network_state_dict)
-    try:
-        optim.load_state_dict(state_dicts['opt'])
-    except:
-        print('Cannot load optimizer for some reason or other')
+    # try:
+    #     optim.load_state_dict(state_dicts['opt'])
+    # except:
+    #     print('Cannot load optimizer for some reason or other')
 
 
 def gauss_noise(shape):
 
-    noise = torch.zeros(shape).cuda()
+    noise = torch.zeros(shape,device=device)
     for i in range(noise.shape[0]):
-        noise[i] = torch.randn(noise[i].shape).cuda()
+        noise[i] = torch.randn(noise[i].shape,device=device)
 
     return noise
 
@@ -39,17 +40,18 @@ def computePSNR(origin,pred):
     pred = pred.astype(np.float32)
     mse = np.mean((origin/1.0 - pred/1.0) ** 2 )
     if mse < 1.0e-10:
-      return 100
+        return 100
     return 10 * math.log10(255.0**2/mse)
 
 
 net = Model()
-net.cuda()
-init_model(net)
+# net.cuda()
+net = net.to(device)
+init_model(net, device=device)
 net = torch.nn.DataParallel(net, device_ids=c.device_ids)
-params_trainable = (list(filter(lambda p: p.requires_grad, net.parameters())))
-optim = torch.optim.Adam(params_trainable, lr=c.lr, betas=c.betas, eps=1e-6, weight_decay=c.weight_decay)
-weight_scheduler = torch.optim.lr_scheduler.StepLR(optim, c.weight_step, gamma=c.gamma)
+# params_trainable = (list(filter(lambda p: p.requires_grad, net.parameters())))
+# optim = torch.optim.Adam(params_trainable, lr=c.lr, betas=c.betas, eps=1e-6, weight_decay=c.weight_decay)
+# weight_scheduler = torch.optim.lr_scheduler.StepLR(optim, c.weight_step, gamma=c.gamma)
 
 load(c.MODEL_PATH + c.suffix)
 

@@ -27,8 +27,11 @@ val_freq = 50
 
 
 # Dataset
-TRAIN_PATH = '/home/jjp/Dataset/DIV2K/DIV2K_train_HR/'
-VAL_PATH = '/home/jjp/Dataset/DIV2K/DIV2K_valid_HR/'
+# TRAIN_PATH = '/home/jjp/Dataset/DIV2K/DIV2K_train_HR/'
+# VAL_PATH = '/home/jjp/Dataset/DIV2K/DIV2K_valid_HR/'
+TRAIN_PATH = '/Users/mohamedelawady/##Research##/repos/ICASSP22-JPEG-AI-watermarking/data/kodak_imgs/'
+VAL_PATH = '/Users/mohamedelawady/##Research##/repos/ICASSP22-JPEG-AI-watermarking/data/kodak_imgs/'
+# VAL_PATH = '/Users/mohamedelawady/##Research##/repos/ICASSP22-JPEG-AI-watermarking/data/kodak_imgs/'
 format_train = 'png'
 format_val = 'png'
 
@@ -42,11 +45,11 @@ progress_bar = False
 
 # Saving checkpoints:
 
-MODEL_PATH = '/home/jjp/Hinet/model/'
+MODEL_PATH = '/Users/mohamedelawady/##Research##/repos/ICASSP22-JPEG-AI-watermarking/models/HiNet/'
 checkpoint_on_error = True
 SAVE_freq = 50
 
-IMAGE_PATH = '/home/jjp/Hinet/image/'
+IMAGE_PATH = '/Users/mohamedelawady/##Research##/repos/ICASSP22-JPEG-AI-watermarking/out/HiNet/'
 IMAGE_PATH_cover = IMAGE_PATH + 'cover/'
 IMAGE_PATH_secret = IMAGE_PATH + 'secret/'
 IMAGE_PATH_steg = IMAGE_PATH + 'steg/'

@@ -21,10 +21,10 @@ class Model(nn.Module):
         return out
 
 
-def init_model(mod):
+def init_model(mod, device):
     for key, param in mod.named_parameters():
         split = key.split('.')
         if param.requires_grad:
-            param.data = c.init_scale * torch.randn(param.data.shape).cuda()
+            param.data = c.init_scale * torch.randn(param.data.shape, device=device)
             if split[-2] == 'conv5':
                 param.data.fill_(0.)
