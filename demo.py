@@ -6,7 +6,6 @@ import numpy as np
 from datasets import to_rgb, transform_test
 from model import *
 import config as c
-import datasets
 import modules.Unet_common as common
 from PIL import Image
 
