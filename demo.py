@@ -17,12 +17,19 @@ def load_model(model_path):
     net = Model()
     net = net.to(device)
     init_model(net, device=device)
-    net = torch.nn.DataParallel(net, device_ids=device_ids)
-    state_dicts = torch.load(model_path, map_location=device)
-    network_state_dict = {
-        k: v for k, v in state_dicts["net"].items() if "tmp_var" not in k
-    }
-    net.load_state_dict(network_state_dict)
+    try:
+        net = torch.nn.DataParallel(net, device_ids=device_ids)
+        state_dicts = torch.load(model_path, map_location=device)
+        network_state_dict = {
+            k: v for k, v in state_dicts["net"].items() if "tmp_var" not in k
+        }
+        net.load_state_dict(network_state_dict)
+    except:
+        state_dicts = torch.load(model_path, map_location=device)
+        network_state_dict = {
+            k[7:]: v for k, v in state_dicts["net"].items() if "tmp_var" not in k
+        }
+        net.load_state_dict(network_state_dict)
     return net
 
 

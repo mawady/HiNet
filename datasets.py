@@ -60,20 +60,20 @@ transform_test = T.Compose([
 ])
 
 # Training data loader
-trainloader = DataLoader(
-    Hinet_Dataset(transforms_=transform, mode="train"),
-    batch_size=c.batch_size,
-    shuffle=True,
-    pin_memory=True,
-    num_workers=8,
-    drop_last=True
-)
-# Test data loader
-testloader = DataLoader(
-    Hinet_Dataset(transforms_=transform_val, mode="val"),
-    batch_size=c.batchsize_val,
-    shuffle=False,
-    pin_memory=True,
-    num_workers=1,
-    drop_last=True
-)
+# trainloader = DataLoader(
+#     Hinet_Dataset(transforms_=transform, mode="train"),
+#     batch_size=c.batch_size,
+#     shuffle=True,
+#     pin_memory=True,
+#     num_workers=8,
+#     drop_last=True
+# )
+# # Test data loader
+# testloader = DataLoader(
+#     Hinet_Dataset(transforms_=transform_val, mode="val"),
+#     batch_size=c.batchsize_val,
+#     shuffle=False,
+#     pin_memory=True,
+#     num_workers=1,
+#     drop_last=True
+# )
